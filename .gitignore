@@ -1,0 +1,34 @@
+# Node dependencies
+node_modules/
+**/node_modules/
+
+# Python virtual env
+.venv/
+**/.venv/
+
+# Env files and secrets
+.env
+**/.env
+
+# Vercel local project settings
+.vercel/
+**/.vercel/
+
+# SQLite and runtime DB files
+*.db
+*.db-shm
+*.db-wal
+**/*.db
+**/*.db-shm
+**/*.db-wal
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS/editor junk
+.DS_Store
+Thumbs.db
+.vscode/
