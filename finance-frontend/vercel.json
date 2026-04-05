@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "https://finance-backend-lo29az9k7-karan-bhatis-projects-01ae0c63.vercel.app/$1"
+      "destination": "https://finance-backend-dzlue6g46-karan-bhatis-projects-01ae0c63.vercel.app/$1"
     }
   ]
 }
