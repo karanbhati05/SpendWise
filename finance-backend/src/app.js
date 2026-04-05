@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
-const swaggerUi = require('swagger-ui-express');
 const { errorHandler } = require('./utils/errors');
 const { trackRequest } = require('./utils/telemetry');
 const openApiSpec = require('./docs/openapi');
@@ -53,14 +52,36 @@ app.get('/docs.json', (req, res) => {
   });
 });
 
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(null, {
-  explorer: true,
-  swaggerOptions: {
-    url: '/docs.json',
-    persistAuthorization: true,
-    displayRequestDuration: true,
-  },
-}));
+app.get(['/docs', '/docs/'], (req, res) => {
+  const html = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SpendWise API Docs</title>
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5/swagger-ui.css" />
+  <style>body { margin: 0; background: #fafafa; }</style>
+</head>
+<body>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
+  <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-standalone-preset.js"></script>
+  <script>
+    window.ui = SwaggerUIBundle({
+      url: '/docs.json',
+      dom_id: '#swagger-ui',
+      deepLinking: true,
+      displayRequestDuration: true,
+      persistAuthorization: true,
+      presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+      layout: 'BaseLayout'
+    });
+  </script>
+</body>
+</html>`;
+  res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  res.status(200).send(html);
+});
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
