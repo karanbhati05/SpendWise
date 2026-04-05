@@ -45,7 +45,9 @@ app.get('/health', (req, res) => {
 
 app.get('/docs.json', (req, res) => {
   const host = req.get('host');
-  const protocol = req.protocol || 'http';
+  const forwardedProto = req.get('x-forwarded-proto');
+  const protocol = (forwardedProto ? forwardedProto.split(',')[0].trim() : req.protocol)
+    || (process.env.VERCEL ? 'https' : 'http');
   res.json({
     ...openApiSpec,
     servers: [{ url: `${protocol}://${host}`, description: 'Current deployment' }],
