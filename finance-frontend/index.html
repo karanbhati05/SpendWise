@@ -1687,8 +1687,14 @@ async function sendAI(txt){
     toast('AI responded \u2736','ai');
   }catch(e){
     removeTyping(tid);
-    const fb=fallback(msg);addMsg('aai',fb);aiH.push({role:'assistant',content:fb});
-    if(aiProvider==='gemini') toast(`Gemini unavailable: ${e.message}. Showing local fallback.`, 'info');
+    if(aiProvider==='gemini'){
+      const errMsg=`Gemini is currently unavailable: ${e.message}\n\nNo fallback response was used. Please configure GEMINI_API_KEY on backend or switch Provider to Local advisor.`;
+      addMsg('aai',errMsg);
+      aiH.push({role:'assistant',content:errMsg});
+      toast(`Gemini unavailable: ${e.message}`, 'error');
+    }else{
+      const fb=fallback(msg);addMsg('aai',fb);aiH.push({role:'assistant',content:fb});
+    }
   }finally{snd.disabled=false;}
 }
 
