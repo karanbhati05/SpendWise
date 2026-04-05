@@ -7,7 +7,8 @@ SpendWise is a full-stack personal finance platform with role-based access, AI-a
 - App: https://finance-frontend-9dumvdtk3-karan-bhatis-projects-01ae0c63.vercel.app
 - API Explorer: https://finance-frontend-9dumvdtk3-karan-bhatis-projects-01ae0c63.vercel.app/api-explorer.html
 - Health Check: https://finance-frontend-9dumvdtk3-karan-bhatis-projects-01ae0c63.vercel.app/api/health
-- Backend API: https://finance-backend-dzlue6g46-karan-bhatis-projects-01ae0c63.vercel.app
+- Backend API: https://finance-backend-r8vhdsc2i-karan-bhatis-projects-01ae0c63.vercel.app
+- Swagger Docs: https://finance-backend-r8vhdsc2i-karan-bhatis-projects-01ae0c63.vercel.app/docs
 
 ## Highlights
 

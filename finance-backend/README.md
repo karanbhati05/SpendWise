@@ -19,6 +19,9 @@ npm run seed
 # 4. Start the server
 npm start
 # → http://localhost:3000
+
+# 5. Open Swagger docs
+# → http://localhost:3000/docs
 ```
 
 ### Demo Credentials
@@ -88,6 +91,11 @@ tests/
 ---
 
 ## API Reference
+
+Interactive docs:
+
+- Swagger UI: `/docs`
+- OpenAPI JSON: `/docs.json`
 
 All authenticated requests require:
 ```

@@ -2,8 +2,10 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const swaggerUi = require('swagger-ui-express');
 const { errorHandler } = require('./utils/errors');
 const { trackRequest } = require('./utils/telemetry');
+const openApiSpec = require('./docs/openapi');
 
 const authRoutes        = require('./routes/auth');
 const userRoutes        = require('./routes/users');
@@ -41,6 +43,24 @@ app.use('/auth', rateLimit({
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString(), env: process.env.NODE_ENV });
 });
+
+app.get('/docs.json', (req, res) => {
+  const host = req.get('host');
+  const protocol = req.protocol || 'http';
+  res.json({
+    ...openApiSpec,
+    servers: [{ url: `${protocol}://${host}`, description: 'Current deployment' }],
+  });
+});
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(null, {
+  explorer: true,
+  swaggerOptions: {
+    url: '/docs.json',
+    persistAuthorization: true,
+    displayRequestDuration: true,
+  },
+}));
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
 
